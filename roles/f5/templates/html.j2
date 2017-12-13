@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>F5 Configuration Tables</title>
+<style>
+table, th, td {
+	text-align: justify;
+}
+</style>
+</head>
+<body>
+    <div>
+        <h2>Self IPs</h2>
+    	<table style="width:100%;font-family:arial;font-size:9pt;border:1px solid #008DCE;">
+            <tr style="color:White;background-color:#007FBA;">
+                <th>Device</th>
+                <th>Name</th>
+                <th>IP Address</th>
+                <th>Netmask</th>
+                <th>Vlan</th>
+		<th>Type</th>
+            </tr>
+            {% for key, value in self_ip.iteritems()|sort %}
+            <tr>
+                <td>{{ inventory_hostname }}</td>
+                <td>{{ key }}</td>
+                <td>{{ value.address }}</td>
+                <td>{{ value.netmask }}</td>
+                <td>{{ value.vlan }}</td>
+		<td>{{ value.traffic_group }}</td>
+            {% endfor %}
+            </tr>
+        </table>
+	<h2>VLANS</h2>
+    	<table style="width:100%;font-family:arial;font-size:9pt;border:1px solid #008DCE;">
+      	    <tr style="color:White;background-color:#007FBA;">
+                <th>Device</th>
+	        <th>VLAN</th>
+	        <th>VLAN ID</th>
+            </tr>
+      	    {% for key, value in vlan.iteritems() %}
+      	    <tr>
+        	<td>{{ inventory_hostname }}</td>
+		<td>{{ key }}</td>
+		<td>{{ value.vlan_id }}</td>
+      	    {% endfor %}
+      	    </tr>
+    	</table>
+	<h2>Nodes</h2>
+        <table style="width:100%;font-family:arial;font-size:9pt;border:1px solid #008DCE;">
+            <tr style="color:White;background-color:#007FBA;">
+                <th>Device</th>
+                <th>Name</th>
+                <th>IP Address</th>
+            </tr>
+            {% for key, value in node.iteritems()|sort %}
+            <tr>
+                <td>{{ inventory_hostname }}</td>
+                <td>{{ key }}</td>
+                <td>{{ value.address }}</td>
+            {% endfor %}
+            </tr>
+        </table>
+        <h2>Pools</h2>
+        <table style="width:100%;font-family:arial;font-size:9pt;border:1px solid #008DCE;">
+            <tr style="color:White;background-color:#007FBA;">
+                <th>Device</th>
+                <th>Name</th>
+		<th>Pool Members</th>
+                <th>LB Method</th>
+            </tr>
+            {% for key, value in pool.iteritems()|sort %}
+            <tr>
+                <td>{{ inventory_hostname }}</td>
+                <td>{{ key }}</td>
+		<td>
+		{% for member in value.member %}
+		<p>{{ member.address }}</p>
+		{% endfor %}
+		</td>
+                <td>{{ value.lb_method }}</td>
+            {% endfor %}
+            </tr>
+        </table>
+        <h2>Virtual Servers</h2>
+        <table style="width:100%;font-family:arial;font-size:9pt;border:1px solid #008DCE;">
+            <tr style="color:White;background-color:#007FBA;">
+                <th>Device</th>
+                <th>Name</th>
+                <th>IP Address</th>
+		<th>Port</th>
+		<th>Pool</th>
+		<th>Profiles</th>
+            </tr>
+            {% for key, value in virtual_server.iteritems()|sort %}
+            <tr>
+                <td>{{ inventory_hostname }}</td>
+                <td>{{ key }}</td>
+                <td>{{ value.destination.address }}</td>
+                <td>{{ value.destination.port }}</td>
+		<td>{{ value.default_pool_name }}</td>
+		<td>
+		{% for profile in value.profile %}
+		<p>{{ profile.profile_name }}</p>
+		{% endfor %}
+		</td>
+            {% endfor %}
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+

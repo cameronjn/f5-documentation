@@ -1,8 +1,0 @@
----
-
-username: admin 
-password: admin
-#server: testf5.local
-validatecerts: no
-
-

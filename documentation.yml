@@ -1,0 +1,9 @@
+---
+
+- name: Automated Documentation
+  hosts: all
+  connection: local
+  gather_facts: no
+  
+  roles:
+     - {role: f5, tags: f5}
