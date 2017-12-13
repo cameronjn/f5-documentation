@@ -1,5 +1,0 @@
-name,destination,port,pool,profiles
-{% for key, value in virtual_server.iteritems() %}
-{{ key }},{{ value.destination.address }},{{ value.destination.port }},{{ value.default_pool_name }},{% for profile in value.profile %}{{ profile.profile_name }}{% endfor %},
-{% endfor %}
-
