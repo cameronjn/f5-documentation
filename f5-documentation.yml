@@ -1,0 +1,25 @@
+#!/usr/bin/env ansible-playbook
+
+---
+
+- name: f5 facts
+  hosts: bigips
+  connection: local
+  
+  tasks:
+    - bigip_facts:
+        include: "self_ip,vlan,node,pool,virtual_server"
+        password: "{{ password }}"
+        server: "{{ inventory_hostname }}"
+        user: "{{ username }}"
+        validate_certs: "no"
+      register: "bigip_facts_out"
+      delegate_to: localhost
+
+# Documentation Tables - HTML Output 
+#    - template: src=html.j2 dest=files/html-output.html
+# Virtual Servers in CSV format
+    - template: src=csv.j2 dest=files/template.csv
+
+# VLAN Table in Markdown
+#    - template: src=vlans-table.j2 dest=files/vlans-table.md
