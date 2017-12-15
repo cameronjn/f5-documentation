@@ -1,15 +1,15 @@
 ---
 
-- name: f5 facts
+- name: html f5 facts
   bigip_facts:
     include: "self_ip,vlan,node,pool,virtual_server"
     password: "{{ password }}"
     server: "{{ inventory_hostname }}"
     user: "{{ username }}"
     validate_certs: "{{ validatecerts }}"
-    register: "bigip_facts_out"
+  register: "bigip_facts_out"
   delegate_to: localhost
 
 # Virtual Servers in HTML format
-- template: src=html.j2 dest=html-output.html
+- template: src=html.j2 dest=roles/f5/files/html-output.html
 

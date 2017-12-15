@@ -1,15 +1,15 @@
 ---
 
-- name: f5 facts
+- name: csv f5 facts
   bigip_facts:
     include: "self_ip,vlan,node,pool,virtual_server"
     password: "{{ password }}"
     server: "{{ inventory_hostname }}"
     user: "{{ username }}"
     validate_certs: "{{ validatecerts }}"
-    register: "bigip_facts_out"
+  register: "bigip_facts_out"
   delegate_to: localhost
 
 # Virtual Servers in CSV format
-- template: src=csv.j2 dest=csv-output.csv
+- template: src=csv.j2 dest=roles/f5/files/csv-output.csv
 
