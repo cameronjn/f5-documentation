@@ -10,6 +10,6 @@
     register: "bigip_facts_out"
   delegate_to: localhost
 
-# Virtual Servers in CSV format
-  template: src=html.j2 dest=html-output.html
+# Virtual Servers in HTML format
+- template: src=html.j2 dest=html-output.html
 

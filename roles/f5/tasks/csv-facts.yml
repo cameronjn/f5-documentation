@@ -11,5 +11,5 @@
   delegate_to: localhost
 
 # Virtual Servers in CSV format
-  template: src=csv.j2 dest=csv-output.csv
+- template: src=csv.j2 dest=csv-output.csv
 
