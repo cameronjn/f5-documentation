@@ -11,17 +11,41 @@ table {
 	width: 100%;
 	font-family: arial;
 	font-size: 9pt;
-	border: 1px solid #008DCE;
+	border-collapse: collapse;
 }
 
 th {
-	background-color: #007FBA;
-	color: White;
+        background-color: #008DCE;
+        color: White;
+        border: 1px solid white;
+	padding: 5px;
 }
 
-tr {
-	border: 1px solid #008DCE;	
-	padding: 1px 5px 1px 5px;
+td {
+        border: 1px solid #008DCE;
+        padding: 5px;
+}
+
+td.nopadding {
+	border: 0px;
+	padding: 0px;
+}
+
+tr:nth-child(even) {
+	background-color: #DBE5F1;
+}
+
+hr {
+	font-family: arial;
+}
+
+h2 {
+	font-size: 12pt;
+	font-weight: bolder;
+}
+
+h3 {
+	font-size: 12pt;
 }
 
 
@@ -29,7 +53,8 @@ tr {
 </head>
 <body>
     <div>
-        <h2>Self IPs</h2>
+        <h2>Network</h2>
+	<h3>Self IPs</h3>
     	<table>
             <tr>
                 <th>Device</th>
@@ -47,10 +72,11 @@ tr {
                 <td>{{ value.netmask }}</td>
                 <td>{{ value.vlan }}</td>
 		<td>{{ value.traffic_group }}</td>
-            {% endfor %}
+            
             </tr>
+	    {% endfor %}
         </table>
-	<h2>VLANS</h2>
+	<h3>VLANS</h3>
     	<table>
       	    <tr>
                 <th>Device</th>
@@ -62,10 +88,11 @@ tr {
         	<td>{{ inventory_hostname }}</td>
 		<td>{{ key }}</td>
 		<td>{{ value.vlan_id }}</td>
-      	    {% endfor %}
       	    </tr>
+      	    {% endfor %}
     	</table>
-	<h2>Nodes</h2>
+	<h2>Local Traffic Manager</h2>
+	<h3>Nodes</h3>
         <table>
             <tr>
                 <th>Device</th>
@@ -77,10 +104,10 @@ tr {
                 <td>{{ inventory_hostname }}</td>
                 <td>{{ key }}</td>
                 <td>{{ value.address }}</td>
-            {% endfor %}
             </tr>
+	    {% endfor %}
         </table>
-        <h2>Pools</h2>
+        <h3>Pools</h3>
         <table>
             <tr>
                 <th>Device</th>
@@ -92,16 +119,20 @@ tr {
             <tr>
                 <td>{{ inventory_hostname }}</td>
                 <td>{{ key }}</td>
-		<td>
+		<td class="nopadding">
+		<table>
 		{% for member in value.member %}
-		<p>{{ member.address }}</p>
+		<tr>
+		<td>{{ member.address }}</td>
+		</tr>
 		{% endfor %}
+		</table>
 		</td>
                 <td>{{ value.lb_method }}</td>
-            {% endfor %}
             </tr>
+	    {% endfor %}
         </table>
-        <h2>Virtual Servers</h2>
+        <h3>Virtual Servers</h3>
         <table>
             <tr>
                 <th>Device</th>
@@ -123,8 +154,8 @@ tr {
 		<p>{{ profile.profile_name }}</p>
 		{% endfor %}
 		</td>
-            {% endfor %}
             </tr>
+	    {% endfor %}
         </table>
     </div>
 </body>
